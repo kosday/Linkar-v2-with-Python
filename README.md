@@ -1,3 +1,5 @@
+# Linkar with Python
+
 This demo shows how a persistent client works from a PYTHON script.
 This demo was tested in linux Python v.3.6.7 and Windows Python v.3.7.1
 
@@ -7,4 +9,3 @@ You have to edit "LinkarClientPy.py" for adjust the correct path to the library.
 
 You have to edit "linkarClib.py" file and adjust the login parameters.
 
-Latest updates and Source code on https://github.com/kosday/Linkar-v2-with-Phyton
