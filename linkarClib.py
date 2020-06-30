@@ -59,6 +59,7 @@ if __name__ == "__main__":
     DBMV_Mark_AM = int('FE', base=16)
     DBMV_Mark_VM = int('FD', base=16)
     DBMV_Mark_AM_str = b"\xFE"
+    ASCII_VT_str = b"\x0B"
 
     customVars = ''
     receiveTimeout = -1
@@ -103,13 +104,12 @@ if __name__ == "__main__":
     nop_conversion = False
     nop_formatSpec = False
     nop_originalRecords = False
-    nop_dictionaries = False
     newOptions = linkar_client.LkCreateNewOptions(nop_newItemIdTypeNone,
                                                             nop_readAfter, nop_calculated,
                                                             nop_conversion, nop_formatSpec,
-                                                            nop_originalRecords, nop_dictionaries)
+                                                            nop_originalRecords)
     result = linkar_client.LkNew(connectionInfo, filename, strNewId, strNewRecord, newOptions,
-                                        LinkarClientPy.IOFormat.MV, LinkarClientPy.IOFormat.MV,
+                                        LinkarClientPy.IOFormat.MV, LinkarClientPy.IOFormatCru.MV,
                                         customVars, 600)
 
     strRecordId = None
@@ -182,16 +182,15 @@ if __name__ == "__main__":
     uop_conversion = False
     uop_formatSpec = False
     uop_originalRecords = False
-    uop_dictionaries = False
     updateOptions = linkar_client.LkCreateUpdateOptions(uop_optimisticLock,
                                                         uop_readAfter, uop_calculated,
                                                         uop_conversion, uop_formatSpec,
-                                                        uop_originalRecords, uop_dictionaries)
+                                                        uop_originalRecords)
 
     originalRecords = ''
     result = linkar_client.LkUpdate(connectionInfo, filename, strRecordId, strRecord,
                                         originalRecords, updateOptions,
-                                        LinkarClientPy.IOFormat.MV, LinkarClientPy.IOFormat.MV,
+                                        LinkarClientPy.IOFormat.MV, LinkarClientPy.IOFormatCru.MV,
                                         customVars, 600)
     output = process_result('Update', result)
     lstRecordIds = output['lstRecordIds']
@@ -214,13 +213,12 @@ if __name__ == "__main__":
     rop_conversion = False
     rop_formatSpec = False
     rop_originalRecords = False
-    rop_dictionaries = False
     readOptions = linkar_client.LkCreateReadOptions(rop_calculated,
                                                         rop_conversion, rop_formatSpec,
-                                                        rop_originalRecords, rop_dictionaries)
+                                                        rop_originalRecords)
     dictionaries = "ADDR"
     result = linkar_client.LkRead(connectionInfo, filename, strNewId, dictionaries, readOptions,
-                                        LinkarClientPy.IOFormat.MV,
+                                        LinkarClientPy.IOFormatCru.MV,
                                         customVars, 600)
 
 
@@ -364,10 +362,9 @@ if __name__ == "__main__":
     sop_conversion = False
     sop_formatSpec = False
     sop_originalRecords = False
-    sop_dictionaries = False
     selectOptions = linkar_client.LkCreateSelectOptions(sop_onlyRecordId, sop_pagination, sop_regPage,
                                                         sop_numPage, sop_calculated, sop_conversion,
-                                                        sop_formatSpec, sop_originalRecords, sop_dictionaries)
+                                                        sop_formatSpec, sop_originalRecords)
 
     selectClause = ""
     sortClause = "BY CODE"
@@ -375,7 +372,7 @@ if __name__ == "__main__":
     preSelectClause = ""
     result = linkar_client.LkSelect(connectionInfo, filename, selectClause, sortClause,
                                     dictClause, preSelectClause, selectOptions,
-                                    LinkarClientPy.IOFormat.MV,
+                                    LinkarClientPy.IOFormatCru.MV,
                                     customVars, 600)
     output = process_result('Select', result)
     if len(output['lstError']) == 0:
@@ -496,7 +493,8 @@ if __name__ == "__main__":
         print(output)
         logger.error("Error while LkGetTable")
     else:
-        rows = output.split(DBMV_Mark_AM_str)
+        #rows = output.split(DBMV_Mark_AM_str)
+        rows = output.split(ASCII_VT_str)
         logger.info("Lines of the Table:")
         for i in range (len(rows)):
             logger.info(rows[i].decode('utf-8'))

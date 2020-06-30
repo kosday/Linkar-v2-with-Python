@@ -28,6 +28,16 @@ class IOFormatSch(Enum):
     JSON = 3
     TABLE = 4
 
+class IOFormatCru(Enum):
+    MV = 1
+    XML = 2
+    JSON = 3
+    TABLE = 4
+    XML_DICT = 5
+    XML_SCH = 6
+    JSON_DICT = 7
+    JSON_SCH = 8
+	
 class RowHeadersType(Enum):
     MAINLABEL = 1
     SHORTLABEL = 2
@@ -94,9 +104,8 @@ class LinkarClient:
         self.LkFreeMemory(cast(ret_cxx_value, c_char_p))
         return ret_value
 
-    def LkCreateReadOptions(self, calculated, conversion, formatSpec, originalRecords, dictionaries):
+    def LkCreateReadOptions(self, calculated, conversion, formatSpec, originalRecords):
         self.lib_linkar.LkCreateReadOptions.argtypes = (c_bool,
-                                                               c_bool,
                                                                c_bool,
                                                                c_bool,
                                                                c_bool)
@@ -104,17 +113,15 @@ class LinkarClient:
         ret_cxx_value = self.lib_linkar.LkCreateReadOptions(c_bool(calculated),
                                                             c_bool(conversion),
                                                             c_bool(formatSpec),
-                                                            c_bool(originalRecords),
-                                                            c_bool(dictionaries))
+                                                            c_bool(originalRecords))
         ret_value = cast(ret_cxx_value, c_char_p).value
         self.LkFreeMemory(cast(ret_cxx_value, c_char_p))
         return ret_value
 
 
     def LkCreateUpdateOptions(self, optimisticLock, readAfter, calculated,
-                                    conversion, formatSpec, originalRecords, dictionaries):
+                                    conversion, formatSpec, originalRecords):
         self.lib_linkar.LkCreateUpdateOptions.argtypes = (c_bool,
-                                                                 c_bool,
                                                                  c_bool,
                                                                  c_bool,
                                                                  c_bool,
@@ -127,8 +134,7 @@ class LinkarClient:
                                                             c_bool(calculated),
                                                             c_bool(conversion),
                                                             c_bool(formatSpec),
-                                                            c_bool(originalRecords),
-                                                            c_bool(dictionaries))
+                                                            c_bool(originalRecords))
         ret_value = cast(ret_cxx_value, c_char_p).value
         self.LkFreeMemory(cast(ret_cxx_value, c_char_p))
         return ret_value
@@ -174,9 +180,8 @@ class LinkarClient:
         return ret_value
 
     def LkCreateNewOptions(self, newItemIdType, readAfter, calculated, conversion,
-                            formatSpec, originalRecords, dictionaries):
+                            formatSpec, originalRecords):
         self.lib_linkar.LkCreateNewOptions.argtypes = (c_char_p,
-                                                              c_bool,
                                                               c_bool,
                                                               c_bool,
                                                               c_bool,
@@ -188,8 +193,7 @@ class LinkarClient:
                                                          c_bool(calculated),
                                                          c_bool(conversion),
                                                          c_bool(formatSpec),
-                                                         c_bool(originalRecords),
-                                                         c_bool(dictionaries))
+                                                         c_bool(originalRecords))
         ret_value = cast(ret_cxx_value, c_char_p).value
         self.LkFreeMemory(cast(ret_cxx_value, c_char_p))
         return ret_value
@@ -236,12 +240,11 @@ class LinkarClient:
 
 
     def LkCreateSelectOptions(self, onlyRecordId, pagination, regPage, numPage,
-                                calculated, conversion, formatSpec, originalRecords, dictionaries):
+                                calculated, conversion, formatSpec, originalRecords):
         self.lib_linkar.LkCreateSelectOptions.argtypes = (c_bool,
                                                             c_bool,
                                                             c_long,
                                                             c_long,
-                                                            c_bool,
                                                             c_bool,
                                                             c_bool,
                                                             c_bool,
@@ -254,8 +257,7 @@ class LinkarClient:
                                                         c_bool(calculated),
                                                         c_bool(conversion),
                                                         c_bool(formatSpec),
-                                                        c_bool(originalRecords),
-                                                        c_bool(dictionaries))
+                                                        c_bool(originalRecords))
         ret_value = cast(ret_cxx_value, c_char_p).value
         self.LkFreeMemory(cast(ret_cxx_value, c_char_p))
         return ret_value
