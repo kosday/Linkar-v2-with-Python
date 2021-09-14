@@ -1,8 +1,8 @@
-# Linkar with Python
+#Linkar with Python
 
-Esta demo muestra el funcionamiento de un cliente persistente desde un script PYTHON.
-Puede ejecutar esta demostración en PHYTON v.3.4 o superior, para Linux y Windows
+Aquí puede encontrar dos tipos diferentes de demos de Python.
 
-Esta demo utiliza "LinkarClientPy.py" (Puede encontrarla en la carpeta Clients \ PYTHON) para conectarse con la biblioteca apropiada: "LinkarClientC.dll" o "libLinkarClientC.so" según el sistema operativo.
-Debe editar "LinkarClientPy.py" para ajustar la ruta correcta a la biblioteca.
-Debe editar el archivo "linkarClib.py" y ajustar los parámetros para iniciar sesión en Linkar
+En la carpeta "with Linkar Clients" está la demo que usa la antigua biblioteca de cliente C con la ayuda del wrapper "LinkarClientPy.py".
+
+Y en la carpeta "with Linkar Framework" está la demo que usa las nuevas bibliotecas de Linkar Framework Python, que están escritas integramente en Python.
+La biblioteca base Linkar Python requiere Linkar Framework Private C Library (incluida en la descarga de Linkar Framework Python Library)
